@@ -9,7 +9,7 @@ public class TaskDTO {
 
     private String name;
 
-    private double duration;
+    private Integer durationDay;
 
     private boolean isDone;
 

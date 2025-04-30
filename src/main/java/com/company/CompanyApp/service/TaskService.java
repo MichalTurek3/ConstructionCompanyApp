@@ -9,7 +9,6 @@ import com.company.CompanyApp.exception.notFound.ConstructionNotFoundException;
 import com.company.CompanyApp.exception.notFound.TaskNotFoundException;
 import com.company.CompanyApp.mapper.TaskMapper;
 import com.company.CompanyApp.repository.ConstructionRepository;
-import com.company.CompanyApp.repository.CustomerRepository;
 import com.company.CompanyApp.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -18,23 +17,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.math.BigDecimal;
 
-import static com.company.CompanyApp.constans.Constants.TASK_NOT_FOUND_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.TASK_NOT_FOUND_ERROR_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
 public class TaskService {
 
-
     private final TaskRepository taskRepository;
-
-    private final CustomerRepository customerRepository;
 
     private final ConstructionRepository constructionRepository;
 
     private final CustomUserDetailsService customUserDetailsService;
+
+    private final ConstructionService constructionService;
 
     private final TaskMapper taskMapper;
 
@@ -56,15 +53,17 @@ public class TaskService {
 
         construction.setCurrentCostOfRealization(totalCost);
         constructionRepository.save(construction);
+
+        constructionService.updatePercentOfRealization(construction.getId());
     }
 
     private static @NotNull BigDecimal getBigDecimal(Construction construction, Task task) {
         BigDecimal totalCost = construction.getCurrentCostOfRealization();
 
-        BigDecimal plannedValue = task.getPlannedValue() != null ? task.getPlannedValue() : BigDecimal.ZERO;
-        totalCost = totalCost.add(plannedValue);
-
         if (task.isDone()) {
+            BigDecimal plannedValue = task.getPlannedValue() != null ? task.getPlannedValue() : BigDecimal.ZERO;
+            totalCost = totalCost.add(plannedValue);
+
             BigDecimal laborCost = BigDecimal.ZERO;
             for (Customer customer : task.getCustomers()) {
                 BigDecimal hourlyRate = customer.getHourlyRate() != null ? customer.getHourlyRate() : BigDecimal.ZERO;
@@ -74,9 +73,9 @@ public class TaskService {
             }
             totalCost = totalCost.add(laborCost);
         }
+
         return totalCost;
     }
-
 
     public void deleteTask(Long id){
         Task task = findTaskById(id);

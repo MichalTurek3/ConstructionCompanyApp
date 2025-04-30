@@ -15,17 +15,20 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MaterialCommand {
 
-    @Size(min = 3, max = 20, message = "Material name should contain between 3 to 20 letters")
+    @Size(min = 3, max = 50, message = "Material name should contain between 3 to 20 letters")
     private String name;
 
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false, message = "Price of material cannot be blank")
     private BigDecimal price;
 
-    @Min(value = 1, message = "Price should not be zero")
-    private int amount;
+    @Min(value = 1, message = "Quantity should not be zero")
+    private Integer quantity;
 
     @DateTimeFormat
     private LocalDate orderDate;
+
+    @NotNull
+    private Long constructionId;
 
 }

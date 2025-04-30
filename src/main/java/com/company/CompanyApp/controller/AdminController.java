@@ -7,7 +7,6 @@ import com.company.CompanyApp.command.TaskCommand;
 import com.company.CompanyApp.domain.Material;
 import com.company.CompanyApp.dto.*;
 import com.company.CompanyApp.model.ActionType;
-import com.company.CompanyApp.repository.ConstructionRepository;
 import com.company.CompanyApp.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,7 +26,7 @@ import javax.validation.Valid;
 
 import java.math.BigDecimal;
 
-import static com.company.CompanyApp.constans.Constants.*;
+import static com.company.CompanyApp.util.Constants.*;
 
 
 @RequiredArgsConstructor
@@ -283,7 +282,6 @@ public class AdminController {
     @GetMapping("/construction/{constructionId}/realization")
     public ResponseEntity<Double> getPercentOfRealization(@PathVariable Long constructionId) {
         adminService.verifyAdminAccessAndSaveAction(ActionType.RETRIEVING_PERCENT_OF_REALIZATION);
-
         double percent = constructionService.updatePercentOfRealization(constructionId);
         return new ResponseEntity<>(percent, HttpStatus.OK);
     }

@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TaskCommand {
 
-    @Size(min = 3, max = 20, message = "Material name should contain between 3 to 20 letters")
+    @Size(min = 3, max = 50, message = "Material name should contain between 3 to 20 letters")
     private String name;
 
     @Min(value = 1, message = "Duration must be expressed in working days. 1 day = 8 hour")
-    private int durationDay;
+    private Integer durationDay;
 
     @BooleanFlag
     private boolean isDone;

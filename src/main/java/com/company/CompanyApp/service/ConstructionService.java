@@ -23,8 +23,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
 
-import static com.company.CompanyApp.constans.Constants.CONSTRUCTION_NOT_FOUND_ERROR_MESSAGE;
-import static com.company.CompanyApp.constans.Constants.TASK_NOT_FOUND_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.CONSTRUCTION_NOT_FOUND_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.TASK_NOT_FOUND_ERROR_MESSAGE;
 
 
 @Service
@@ -93,36 +93,23 @@ public class ConstructionService {
 
     public double updatePercentOfRealization(Long constructionId) {
         Construction construction = findConstructionById(constructionId);
+
         BigDecimal plannedTotal = construction.getPlannedPrizeOfRealization();
+        BigDecimal currentTotal = construction.getCurrentCostOfRealization();
+
         if (plannedTotal == null || plannedTotal.compareTo(BigDecimal.ZERO) == 0) {
             construction.setPercentOfRealization(0.0);
+        } else {
+            BigDecimal percent = currentTotal
+                    .divide(plannedTotal, 4, RoundingMode.HALF_UP)
+                    .multiply(BigDecimal.valueOf(100));
+            construction.setPercentOfRealization(percent.doubleValue());
         }
 
-        BigDecimal completedTasksValue = construction.getTasks().stream()
-                .filter(Task::isDone)
-                .map(task -> task.getPlannedValue() != null ? task.getPlannedValue() : BigDecimal.ZERO)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        BigDecimal materialsCost = construction.getMaterials().stream()
-                .map(m -> {
-                    BigDecimal price = m.getPrice() != null ? m.getPrice() : BigDecimal.ZERO;
-                    BigDecimal quantity = BigDecimal.valueOf(m.getQuantity());
-                    return price.multiply(quantity);
-                })
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        BigDecimal actualRealized = completedTasksValue.add(materialsCost);
-
-        double percent = actualRealized
-                .divide(plannedTotal, 2, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(100))
-                .doubleValue();
-
-        construction.setPercentOfRealization(percent);
         constructionRepository.save(construction);
-
         return construction.getPercentOfRealization();
     }
+
 
 
 }

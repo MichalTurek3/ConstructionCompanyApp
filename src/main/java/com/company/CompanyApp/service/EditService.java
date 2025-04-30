@@ -16,7 +16,7 @@ import com.company.CompanyApp.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.company.CompanyApp.constans.Constants.*;
+import static com.company.CompanyApp.util.Constants.*;
 
 @Service
 @RequiredArgsConstructor

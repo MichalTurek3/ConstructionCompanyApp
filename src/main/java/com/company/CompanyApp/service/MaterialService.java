@@ -18,7 +18,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.company.CompanyApp.constans.Constants.MATERIAL_NOT_FOUND_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.MATERIAL_NOT_FOUND_ERROR_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +30,8 @@ public class MaterialService {
 
     private final ConstructionRepository constructionRepository;
 
+    private final ConstructionService constructionService;
+
     public Page<MaterialDTO> getAllMaterials(Pageable pageable) {
         return materialRepository.findAll(pageable).map(materialMapper::materialToMaterialDTO);
     }
@@ -38,20 +40,27 @@ public class MaterialService {
     public void saveMaterial(MaterialCommand materialCommand) {
         Material material = materialMapper.materialCommandToMaterial(materialCommand);
 
+        Construction construction = constructionRepository.findById(materialCommand.getConstructionId())
+                .orElseThrow(() -> new ConstructionNotFoundException("Construction with ID " + materialCommand.getConstructionId() + " not found"));
+
+        material.setConstruction(construction);
         materialRepository.save(material);
 
-        Construction construction = material.getConstruction();
-        if (construction == null) {
-            throw new ConstructionNotFoundException("Material must be assigned to a construction.");
+        BigDecimal currentCost = construction.getCurrentCostOfRealization();
+        if (currentCost == null) {
+            currentCost = BigDecimal.ZERO;
         }
 
-        BigDecimal cost = BigDecimal.valueOf(material.getQuantity())
-                .multiply(material.getPrice());
+        BigDecimal cost = material.getPrice().multiply(BigDecimal.valueOf(material.getQuantity()));
+        BigDecimal updatedCost = currentCost.add(cost);
 
-        BigDecimal updatedCost = construction.getCurrentCostOfRealization().add(cost);
         construction.setCurrentCostOfRealization(updatedCost);
         constructionRepository.save(construction);
+
+        constructionService.updatePercentOfRealization(construction.getId());
     }
+
+
 
 
     public void deleteMaterial(Long id){

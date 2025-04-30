@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.company.CompanyApp.constans.Constants.*;
+import static com.company.CompanyApp.util.Constants.*;
 
 @Service
 @RequiredArgsConstructor

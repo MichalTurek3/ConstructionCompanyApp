@@ -24,7 +24,7 @@ public class Task {
 
     private String name;
 
-    private int durationDay;
+    private Integer durationDay;
 
     private boolean isDone;
 

@@ -1,4 +1,4 @@
-package com.company.CompanyApp.constans;
+package com.company.CompanyApp.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

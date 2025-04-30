@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.company.CompanyApp.constans.Constants.CUSTOMER_NOT_AUTHORIZED_ERROR_MESSAGE;
-import static com.company.CompanyApp.constans.Constants.USER_NOT_FOUND_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.CUSTOMER_NOT_AUTHORIZED_ERROR_MESSAGE;
+import static com.company.CompanyApp.util.Constants.USER_NOT_FOUND_ERROR_MESSAGE;
 
 @Service
 @RequiredArgsConstructor

@@ -14,5 +14,9 @@ public class MaterialDTO {
 
     private BigDecimal price;
 
-    private Construction construction;
+    private Long constructionId;
+
+    private String name;
+
+    private Integer quantity;
 }

@@ -28,7 +28,7 @@ public class Material {
 
     private BigDecimal price;
 
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "construction_id")
