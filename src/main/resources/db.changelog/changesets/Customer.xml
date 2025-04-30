@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="customer-table" author="Michal">
+        <createTable tableName="customer">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="specialization" type="varchar(255)"/>
+            <column name="hourly_rate" type="numeric(19,2)"/>
+            <column name="account_enabled" type="boolean"/>
+            <column name="account_non_expired" type="boolean"/>
+            <column name="account_non_locked" type="boolean"/>
+            <column name="credentials_non_expired" type="boolean"/>
+            <column name="role" type="varchar(255)"/>
+            <column name="construction_id" type="bigint"/>
+            <column name="task_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="customer" baseColumnNames="construction_id"
+                                 referencedTableName="construction" referencedColumnNames="id"
+                                 constraintName="fk_customer_construction"/>
+
+        <addForeignKeyConstraint baseTableName="customer" baseColumnNames="task_id"
+                                 referencedTableName="task" referencedColumnNames="id"
+                                 constraintName="fk_customer_task"/>
+    </changeSet>
+</databaseChangeLog>

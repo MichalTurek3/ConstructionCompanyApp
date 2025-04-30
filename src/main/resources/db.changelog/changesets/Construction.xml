@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="construction-table" author="Michal">
+        <createTable tableName="construction">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="planned_prize_of_realization" type="numeric(19,2)"/>
+            <column name="percent_of_realization" type="double"/>
+            <column name="current_cost_of_realization" type="numeric(19,2)"/>
+            <column name="location" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

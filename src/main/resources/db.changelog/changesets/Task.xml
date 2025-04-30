@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="task-table" author="Michal">
+        <createTable tableName="task">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="duration_day" type="int"/>
+            <column name="is_done" type="boolean"/>
+            <column name="planned_value" type="numeric(19,2)"/>
+            <column name="construction_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="task" baseColumnNames="construction_id"
+                                 referencedTableName="construction" referencedColumnNames="id"
+                                 constraintName="fk_task_construction"/>
+    </changeSet>
+</databaseChangeLog>
