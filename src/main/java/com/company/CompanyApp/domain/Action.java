@@ -1,6 +1,5 @@
 package com.company.CompanyApp.domain;
 
-import com.company.CompanyApp.model.ActionType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

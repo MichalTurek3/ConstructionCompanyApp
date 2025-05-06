@@ -6,7 +6,6 @@ import com.company.CompanyApp.command.MaterialCommand;
 import com.company.CompanyApp.command.TaskCommand;
 import com.company.CompanyApp.domain.Material;
 import com.company.CompanyApp.dto.*;
-import com.company.CompanyApp.model.ActionType;
 import com.company.CompanyApp.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,6 +34,8 @@ import static com.company.CompanyApp.util.Constants.*;
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
+    // todos podzielenie controlerow pod wzgeldem biznesowym / technicznym, dodanie zamockowanych wartosci, uruchoniemie swaggera
+
     private final AdminService adminService;
 
     private final ConstructionService constructionService;
@@ -54,7 +55,7 @@ public class AdminController {
                                                       @RequestBody EditCommand editCommand) {
         adminService.verifyAdminAccessAndSaveAction(ActionType.EDIT, customerId, CUSTOMER,
                 editCommand.getFieldName(), editCommand.getNewValue());
-        return new ResponseEntity<>(adminService.updateCustomer(customerId, editCommand), HttpStatus.OK);
+        return new ResponseEntity<>(dataCreationCenter.exampleResponse());
     }
 
     @Operation(summary = "Update material")

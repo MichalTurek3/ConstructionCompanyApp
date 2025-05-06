@@ -19,7 +19,10 @@ import java.util.Collections;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+// User
 public class Customer implements UserDetails, Serializable {
+
+    // druga klasa emloyee
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 
+    // wywalic paginacje wszedzie
+
     private final TaskService taskService;
 
     private final ConstructionService constructionService;

@@ -1,6 +1,5 @@
 package com.company.CompanyApp.config.security;
 
-import com.company.CompanyApp.config.CustomAccessDeniedHandler;
 import com.company.CompanyApp.exception.FilterChainFailException;
 import com.company.CompanyApp.repository.AdminRepository;
 import com.company.CompanyApp.repository.CustomerRepository;

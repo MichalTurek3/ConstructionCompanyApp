@@ -20,4 +20,9 @@ public class ConstructionCommand {
     @Size(min = 3, max = 50, message = "Location should contain between 3 to 20 letters")
     private String location;
 
+    // Lista obiektow typu Contractor - > ContractCommand, DTO, Domain itp.
+    // Lista obiektow typu Document -> String umowa nazwa pdf
+    // Potrzebne materialy - Lista materialow
+
+
 }

@@ -24,12 +24,15 @@ public class Material {
 
     private String name;
 
+    // to do wywalenia
     private LocalDate orderDate;
 
     private BigDecimal price;
 
+    // to do wywalenia
     private Integer quantity;
 
+    // to do wywalenia
     @ManyToOne
     @JoinColumn(name = "construction_id")
     private Construction construction;

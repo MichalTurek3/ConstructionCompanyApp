@@ -1,6 +1,5 @@
 package com.company.CompanyApp.dto;
 
-import com.company.CompanyApp.model.ActionType;
 import lombok.Data;
 
 import java.time.LocalDate;

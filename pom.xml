@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.5</version>
+		<version>2.7.5</version> <!-- podbijamy springa tdo 3.0+ -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.company</groupId>
@@ -14,7 +14,7 @@
 	<name>CompanyApp</name>
 	<description>CompanyApp</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>17</java.version>  <!-- podbijamy jave do 21 -->
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<lombok.version>1.18.30</lombok.version>
 	</properties>

@@ -34,14 +34,18 @@ public class Construction {
 
     private String location;
 
+    // material nie musi byc zalezny od budowy
     @OneToMany(mappedBy = "construction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Material> materials;
-
+    // rozgraniczenie na Contractor / employees /
     @OneToMany(mappedBy = "construction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Customer> customers;
 
+    // kierownik budowy - > nasz user aplikacji mobilnej
+
+    // Enum -> jako te etapy - enum parametryzowany
     @OneToMany(mappedBy = "construction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    private List<Task> tasks; // Milestone
 
 
 
